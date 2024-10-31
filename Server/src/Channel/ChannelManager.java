@@ -2,7 +2,6 @@ package Channel;
 
 import Client.Client;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,9 +29,9 @@ public class ChannelManager {
     public String getChannelClientList() {
         sb.setLength(0);
 
-        Map<String, Client> channelClientList = ChannelList.getInstance().get(0).getChannelClientList();
+        List<String> channelClientList = ChannelList.getInstance().get(0).getChannelClientList();
 
-        for (String name : channelClientList.keySet()) {
+        for (String name : channelClientList) {
             sb.append(name).append('\n');
         }
 

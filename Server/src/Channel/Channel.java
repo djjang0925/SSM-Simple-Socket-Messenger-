@@ -3,6 +3,8 @@ package Channel;
 import Client.Client;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 
@@ -13,7 +15,7 @@ public class Channel {
     // Design considering the future implementation of hosting features.
     // 0 index for host.
     // Can access by client list index.
-    Map<String, Client> channelClientList = new HashMap<>();
+    private final List<String> channelClientList = new LinkedList<>();
 
     public String getName() {
         return this.name;
@@ -23,7 +25,7 @@ public class Channel {
         this.name = name;
     }
 
-    public Map<String, Client> getChannelClientList() {
-        return this.channelClientList;
+    public synchronized List<String> getChannelClientList() {
+        return channelClientList;
     }
 }

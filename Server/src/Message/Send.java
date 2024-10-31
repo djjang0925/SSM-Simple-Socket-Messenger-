@@ -1,10 +1,12 @@
 package Message;
 
 import Channel.ChannelList;
+import Client.ClientList;
 import Client.Client;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 public class Send {
@@ -14,10 +16,12 @@ public class Send {
     }
 
     public static void sendChannel(int index, String message) throws IOException {
-        Map<String, Client> channelClientList = ChannelList.getInstance().get(index).getChannelClientList();
+        List<String> channelClientList = ChannelList.getInstance().get(index).getChannelClientList();
+        Map<String, Client> clientList = ClientList.getInstance();
 
-        for (Client client : channelClientList.values()) {
-            client.getOut().writeUTF(message);
+        System.out.println(clientList.toString());
+        for (String name : channelClientList) {
+            clientList.get(name).getOut().writeUTF(message);
         }
     }
 }

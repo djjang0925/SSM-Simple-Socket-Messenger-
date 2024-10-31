@@ -4,9 +4,12 @@ import java.io.DataOutputStream;
 
 /* Duplicate client names are not allowed. */
 public class Client {
+    String name;
     DataOutputStream out;
     String status;
 
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
     public DataOutputStream getOut() {
         return out;
     }

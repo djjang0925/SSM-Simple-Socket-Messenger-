@@ -10,25 +10,30 @@ import java.io.DataOutputStream;
 import java.net.Socket;
 import java.util.Map;
 
-public class ClientHandler implements Runnable {
+public class ClientHandler {
     Client client;
     Socket socket;
     ChannelManager channelManager;
     Channel lobby = ChannelList.getInstance().get(0);
     Map<String, Client> clientList = ClientList.getInstance();
+    DataInputStream in;
+    DataOutputStream out;
 
     public ClientHandler(Client client, Socket socket, ChannelManager channelManager) {
         this.socket = socket;
         this.client = client;
         this.channelManager = channelManager;
+
+        try {
+            this.in = new DataInputStream(socket.getInputStream());
+            this.out = new DataOutputStream(socket.getOutputStream());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    @Override
-    public void run() {
+    public void receiveMessages() {
         try {
-            DataInputStream in = new DataInputStream(socket.getInputStream());
-            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-
             // For test client
             out.writeUTF("[Server] 닉네임을 입력하세요: ");
 
@@ -38,15 +43,12 @@ public class ClientHandler implements Runnable {
             Duplicate check code
             */
 
-            // Create client
+            // Set client data and update lists
+            client.setName(clientName);
             client.setOut(out);
             client.setStatus("Lobby");
-
-            // Add client info in client list
             clientList.put(clientName, client);
-
-            // Add client in lobby
-            lobby.getChannelClientList().put(clientName, client);
+            lobby.getChannelClientList().add(clientName);
 
             // Server log
             System.out.println("[Enter]: " + clientName);
@@ -67,9 +69,36 @@ public class ClientHandler implements Runnable {
             // Send channel list to client
             Send.sendPersonal(client, channelManager.getChannelList());
 
-            // Process incoming message
-            // ex. Join channel, send whisper... ect
+            // Process additional incoming messages from client
+            while (true) {
+                String message = in.readUTF();
+                // Handle message (e.g., joining channels, sending whispers, etc.)
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            disconnectClient();
+        }
+    }
 
+    public void sendMessages() {
+        try {
+            // Continuously send messages or updates to the client as needed
+            // For example, it could listen for new events to notify the client
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // need update(like leave channel... ect)
+    private void disconnectClient() {
+        try {
+            String clientName = client.getName();
+            clientList.remove(clientName);
+            lobby.getChannelClientList().remove(clientName);
+            socket.close();
+            System.out.println("[Leave]: " + clientName);
+            System.out.println("[Current]: " + clientList.size());
         } catch (Exception e) {
             e.printStackTrace();
         }
