@@ -1,26 +1,18 @@
 package Client;
 
-import java.net.Socket;
+import java.io.DataOutputStream;
 
+/* Duplicate client names are not allowed. */
 public class Client {
-    String name;
-    Socket socket;
+    DataOutputStream out;
     String status;
 
-    public String getName() {
-        return name;
+    public DataOutputStream getOut() {
+        return out;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Socket getSocket() {
-        return socket;
-    }
-
-    public void setSocket(Socket socket) {
-        this.socket = socket;
+    public void setOut(DataOutputStream out) {
+        this.out = out;
     }
 
     public String getStatus() {
