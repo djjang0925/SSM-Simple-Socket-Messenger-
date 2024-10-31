@@ -1,6 +1,6 @@
 import Client.Client;
 import Client.ClientHandler;
-import Channel.ChannelManager;
+import Channel.ChannelHandler;
 
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,11 +12,10 @@ public class Main {
     {
         Socket socket;
         ServerSocket serverSocket;
-        ChannelManager channelManager = new ChannelManager();
+        ChannelHandler channelHandler = new ChannelHandler();
 
         // Generate Thread pool for receive and send message
-        ExecutorService receivePool = Executors.newFixedThreadPool(10);
-        ExecutorService sendPool = Executors.newFixedThreadPool(10);
+        ExecutorService threadPool = Executors.newFixedThreadPool(10);
 
         try {
             serverSocket = new ServerSocket(8888);
@@ -24,25 +23,16 @@ public class Main {
 
             while(true) {
                 socket = serverSocket.accept();
-
                 Client client = new Client();
-                ClientHandler clientHandler = new ClientHandler(client, socket, channelManager);
+                ClientHandler clientHandler = new ClientHandler(client, socket, channelHandler);
 
                 /* Submit incoming and outgoing tasks to the thread pool
                 to ensure that client requests are processed asynchronously
                 at the same time */
-                receivePool.submit(() -> {
+                threadPool.submit(() -> {
                     try {
-                        clientHandler.receiveMessages();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                });
-
-                sendPool.submit(() -> {
-                    try {
-                        clientHandler.sendMessages();
-                    } catch (Exception e) {
+                        clientHandler.handleClient();
+                    } catch(Exception e) {
                         e.printStackTrace();
                     }
                 });
@@ -51,8 +41,7 @@ public class Main {
             e.printStackTrace();
         } finally {
             // When shutdown the server, exit the thread pool to clean up resources
-            receivePool.shutdown();
-            sendPool.shutdown();
+            threadPool.shutdown();
         }
     }
 }

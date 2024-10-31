@@ -1,12 +1,7 @@
 package Channel;
 
-import Client.Client;
-
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-
 
 /* Duplicate channel names are allowed. */
 /* Managed by channel index number. */

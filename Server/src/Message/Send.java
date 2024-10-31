@@ -19,7 +19,6 @@ public class Send {
         List<String> channelClientList = ChannelList.getInstance().get(index).getChannelClientList();
         Map<String, Client> clientList = ClientList.getInstance();
 
-        System.out.println(clientList.toString());
         for (String name : channelClientList) {
             clientList.get(name).getOut().writeUTF(message);
         }

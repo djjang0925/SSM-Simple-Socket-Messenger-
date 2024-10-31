@@ -1,11 +1,9 @@
 package Channel;
 
-import Client.Client;
-
 import java.util.List;
 import java.util.Map;
 
-public class ChannelManager {
+public class ChannelHandler {
     StringBuilder sb = new StringBuilder();
 
     // Channel list for lobby clients
