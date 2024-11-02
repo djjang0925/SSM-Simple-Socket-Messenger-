@@ -1,6 +1,9 @@
-import Client.Client;
-import Client.ClientHandler;
-import Channel.ChannelHandler;
+package org.example;
+
+
+import org.example.Channel.ChannelHandler;
+import org.example.Client.Client;
+import org.example.Client.ClientHandler;
 
 import java.net.ServerSocket;
 import java.net.Socket;

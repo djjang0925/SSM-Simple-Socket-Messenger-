@@ -1,9 +1,9 @@
-package Client;
+package org.example.Client;
 
-import Channel.Channel;
-import Channel.ChannelList;
-import Channel.ChannelHandler;
-import Message.Send;
+import org.example.Channel.Channel;
+import org.example.Channel.ChannelHandler;
+import org.example.Channel.ChannelList;
+import org.example.Message.Send;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

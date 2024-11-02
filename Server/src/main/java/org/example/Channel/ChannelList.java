@@ -1,4 +1,4 @@
-package Channel;
+package org.example.Channel;
 
 import java.util.HashMap;
 import java.util.Map;

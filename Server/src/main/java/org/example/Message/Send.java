@@ -1,8 +1,8 @@
-package Message;
+package org.example.Message;
 
-import Channel.ChannelList;
-import Client.ClientList;
-import Client.Client;
+import org.example.Channel.ChannelList;
+import org.example.Client.Client;
+import org.example.Client.ClientList;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
