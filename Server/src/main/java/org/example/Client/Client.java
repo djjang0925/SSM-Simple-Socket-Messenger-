@@ -6,7 +6,7 @@ import java.io.DataOutputStream;
 public class Client {
     String name;
     DataOutputStream out;
-    String current;
+    Integer current;
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
@@ -18,11 +18,11 @@ public class Client {
         this.out = out;
     }
 
-    public String getCurrent() {
+    public int getCurrent() {
         return current;
     }
 
-    public void setCurrent(String current) {
+    public void setCurrent(int current) {
         this.current = current;
     }
 }

@@ -1,7 +1,6 @@
 package org.example.Channel;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /* Duplicate channel names are allowed. */
 /* Managed by channel index number. */
@@ -10,7 +9,7 @@ public class Channel {
     // Design considering the future implementation of hosting features.
     // 0 index for host.
     // Can access by client list index.
-    private final List<String> channelClientList = new LinkedList<>();
+    private final LinkedList<String> channelClientList = new LinkedList<>();
 
     public String getName() {
         return this.name;
@@ -20,7 +19,7 @@ public class Channel {
         this.name = name;
     }
 
-    public synchronized List<String> getChannelClientList() {
+    public synchronized LinkedList<String> getChannelClientList() {
         return channelClientList;
     }
 }

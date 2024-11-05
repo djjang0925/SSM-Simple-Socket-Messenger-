@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Send {
-    public static void sendPersonal(Client client, String message) throws IOException {
-        DataOutputStream out = client.getOut();
+    public static void sendPrivate(String userName, String message) throws IOException {
+        DataOutputStream out = ClientList.getInstance().get(userName).getOut();
         out.writeUTF(message);
     }
 

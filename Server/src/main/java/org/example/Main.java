@@ -1,7 +1,7 @@
 package org.example;
 
 
-import org.example.Channel.ChannelHandler;
+import org.example.Channel.ChannelToJson;
 import org.example.Client.Client;
 import org.example.Client.ClientHandler;
 
@@ -15,7 +15,6 @@ public class Main {
     {
         Socket socket;
         ServerSocket serverSocket;
-        ChannelHandler channelHandler = new ChannelHandler();
 
         // Generate Thread pool for receive and send message
         ExecutorService threadPool = Executors.newFixedThreadPool(10);
@@ -27,7 +26,7 @@ public class Main {
             while(true) {
                 socket = serverSocket.accept();
                 Client client = new Client();
-                ClientHandler clientHandler = new ClientHandler(client, socket, channelHandler);
+                ClientHandler clientHandler = new ClientHandler(client, socket);
 
                 /* Submit incoming and outgoing tasks to the thread pool
                 to ensure that client requests are processed asynchronously
